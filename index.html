@@ -23,8 +23,29 @@
       --r:18px;
       --r2:24px;
       --focus: 0 0 0 4px rgba(217,184,122,.28);
-    }
+    .zoom-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
 
+.zoom-bg img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:14px;
+  object-fit:contain;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+@media (max-width: 768px){
+  .zoom-bg img{
+    max-width:95%;
+    max-height:85%;
+  }
+}
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
