@@ -608,7 +608,15 @@
       <span>Nota (opcional)</span>
       <input id="customerNote" type="text" placeholder="Ej. Si hay alguna recomendación similar, envíamela" />
     </label>
-
+<label class="field">
+  <span>Selecciona tu vendedora</span>
+  <select id="sellerSelect" required>
+    <option value="">-- Selecciona --</option>
+    <option value="DAR01 - Dariana Castillo Guzmán">DAR01 - Dariana Castillo Guzmán</option>
+    <option value="HIL02 - Hilmarie Sarita Javier">HIL02 - Hilmarie Sarita Javier</option>
+    <option value="JEN03 - Jennifer de la Cruz Quintana">JEN03 - Jennifer de la Cruz Quintana</option>
+  </select>
+</label>
     <button id="sendWhatsApp" class="btn primary" type="button">Enviar pedido por WhatsApp</button>
     <button id="clearCart" class="btn" type="button">Vaciar carrito</button>
   </div>
