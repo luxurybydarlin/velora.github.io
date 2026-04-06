@@ -1523,18 +1523,8 @@ async function init(){
   applyFilters();
   updateCartCount();
 }
-<div id="zoomBg" class="zoom-bg" onclick="closeZoom()">
-  <img id="zoomImg" src="" />
 </div>
 init();
-  function openZoom(src){
-  document.getElementById("zoomImg").src = src;
-  document.getElementById("zoomBg").style.display = "flex";
-}
-
-function closeZoom(){
-  document.getElementById("zoomBg").style.display = "none";
-}
 </script>
 </body>
 </html>
