@@ -1316,7 +1316,11 @@ function buildWhatsAppMessage(){
   const name = norm(el("customerName").value);
   const zone = norm(el("customerZone").value);
   const note = norm(el("customerNote").value);
-
+const seller = el("sellerSelect").value;
+if(!seller){
+  alert("Por favor selecciona una vendedora");
+  return "";
+}
   const lines = [];
   lines.push("👋 Hola, buenas.");
   lines.push("✨ Me gustaría cotizar y hacer un pedido del siguiente listado:");
@@ -1326,6 +1330,7 @@ function buildWhatsAppMessage(){
   if(name) lines.push(`👤 Nombre: ${name}`);
   if(zone) lines.push(`📍 Zona/Dirección: ${zone}`);
   if(note) lines.push(`📝 Nota: ${note}`);
+  lines.push(`🧑‍💼 Vendedora: ${seller}`);
   lines.push("");
   lines.push("✅ Quedo atento/a a disponibilidad y precio. ¡Muchas gracias! 🙏");
 
@@ -1336,7 +1341,8 @@ function sendWhatsApp(){
     alert("Tu carrito está vacío.");
     return;
   }
-  const msg = buildWhatsAppMessage();
+const msg = buildWhatsAppMessage();
+if(!msg) return;
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
