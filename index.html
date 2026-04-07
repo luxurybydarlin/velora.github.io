@@ -23,8 +23,8 @@
       --r:18px;
       --r2:24px;
       --focus: 0 0 0 4px rgba(217,184,122,.28);
-      }
-    
+    }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -328,28 +328,7 @@
       max-width: 150px;
       font-weight:800;
     }
-@media (max-width: 768px) {
 
-  .item-media{
-    width: 110px;
-    height: 110px;
-  }
-
-  .item-media img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .item-name{
-    font-size: 14px;
-  }
-
-  .item-meta{
-    font-size: 11px;
-  }
-
-}
     /* Admin por item */
     .admin-row{
       display:flex;
@@ -567,6 +546,7 @@
       <span>Tamaño (ml)</span>
       <select id="sizeSelect"></select>
     </label>
+
     <label class="field">
       <span>Tipo (EDT/EDP/Parfum…)</span>
       <select id="typeSelect"></select>
@@ -628,15 +608,7 @@
       <span>Nota (opcional)</span>
       <input id="customerNote" type="text" placeholder="Ej. Si hay alguna recomendación similar, envíamela" />
     </label>
-<label class="field">
-  <span>Selecciona tu vendedora</span>
-  <select id="sellerSelect" required>
-    <option value="">-- Selecciona --</option>
-    <option value="DAR01 - Dariana Castillo Guzmán">DAR01 - Dariana Castillo Guzmán</option>
-    <option value="HIL02 - Hilmarie Sarita Javier">HIL02 - Hilmarie Sarita Javier</option>
-    <option value="JEN03 - Jennifer de la Cruz Quintana">JEN03 - Jennifer de la Cruz Quintana</option>
-  </select>
-</label>
+
     <button id="sendWhatsApp" class="btn primary" type="button">Enviar pedido por WhatsApp</button>
     <button id="clearCart" class="btn" type="button">Vaciar carrito</button>
   </div>
@@ -1336,11 +1308,7 @@ function buildWhatsAppMessage(){
   const name = norm(el("customerName").value);
   const zone = norm(el("customerZone").value);
   const note = norm(el("customerNote").value);
-const seller = el("sellerSelect").value;
-if(!seller){
-  alert("Por favor selecciona una vendedora");
-  return "";
-}
+
   const lines = [];
   lines.push("👋 Hola, buenas.");
   lines.push("✨ Me gustaría cotizar y hacer un pedido del siguiente listado:");
@@ -1350,7 +1318,6 @@ if(!seller){
   if(name) lines.push(`👤 Nombre: ${name}`);
   if(zone) lines.push(`📍 Zona/Dirección: ${zone}`);
   if(note) lines.push(`📝 Nota: ${note}`);
-  lines.push(`🧑‍💼 Vendedora: ${seller}`);
   lines.push("");
   lines.push("✅ Quedo atento/a a disponibilidad y precio. ¡Muchas gracias! 🙏");
 
@@ -1361,8 +1328,7 @@ function sendWhatsApp(){
     alert("Tu carrito está vacío.");
     return;
   }
-const msg = buildWhatsAppMessage();
-if(!msg) return;
+  const msg = buildWhatsAppMessage();
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
@@ -1522,7 +1488,7 @@ async function init(){
   applyFilters();
   updateCartCount();
 }
-</div>
+
 init();
 </script>
 </body>
