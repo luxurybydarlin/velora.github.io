@@ -236,8 +236,8 @@
 
     /* Imagen opcional */
     .item-media{
-      width: 92px;
-      height: 92px;
+  width: 92px;
+  aspect-ratio: 1/1;
       border-radius: 16px;
       flex-shrink:0;
       border:1px solid rgba(217,184,122,.35);
@@ -487,7 +487,25 @@
       .brand-sub{display:none}
       .topbar{padding:12px}
       .item{flex-direction:column;}
-      .item-media{width:100%; height:170px;}
+.item-media{
+  width:100%;
+  aspect-ratio: 1/1;
+  height:auto;
+}
+      .top-actions{
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.search-wrap{
+  width:100%;
+  max-width:100%;
+}
+
+.cart-btn{
+  width:100%;
+  justify-content:center;
+}
       .item-actions{
         flex-direction:row;
         justify-content:space-between;
