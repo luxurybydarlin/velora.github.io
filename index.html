@@ -1121,7 +1121,7 @@ function parseImport(text){
     if(!/[|｜¦│]/.test(line)) continue;
 
     const parts = splitPipes(line);
-    if(parts.length >= 5){
+    if(parts.length >= 2){
       const brand = parts[0];
       const name = parts[1];
       const sizeText = parts[2];
