@@ -1,1533 +1,1461 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LUXURY BY DARLIN — Catálogo</title>
-  <meta name="description" content="Catálogo de perfumes — carrito y pedidos por WhatsApp." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELORA — Boutique de Perfumes</title>
+<meta name="description" content="VELORA Boutique de Perfumes. Catálogo elegante con carrito y pedidos por WhatsApp.">
+<meta name="theme-color" content="#ff7fca">
+<link rel="icon" href="logo-velora.jpeg">
 
-  <style>
-    :root{
-      /* LUXURY BY DARLIN — Paleta clara oficial */
-      --bg:#F8F5F0;        /* marfil */
-      --panel:#EFE7DA;     /* beige arena */
-      --card:#FFFFFF;      /* tarjetas */
-      --card2:#F3EEE7;     /* superficies suaves */
-      --text:#2B2622;      /* gris carbón (más “negro”) */
-      --muted:#6F6860;     /* gris topo */
-      --gold:#D9B87A;      /* champagne gold */
-      --gold2:#EED9A6;     /* dorado claro */
-      --line:#E3D8C8;      /* líneas suaves */
-      --shadow: 0 12px 28px rgba(17, 12, 7, .08);
-      --shadow2: 0 10px 18px rgba(17, 12, 7, .06);
-      --r:18px;
-      --r2:24px;
-      --focus: 0 0 0 4px rgba(217,184,122,.28);
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-      background:
-        radial-gradient(1100px 650px at 15% -10%, rgba(217,184,122,.22), transparent 55%),
-        radial-gradient(900px 520px at 110% 0%, rgba(217,184,122,.12), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.55), transparent 38%),
-        var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    input, select, textarea{font-family:inherit}
-    .hidden{display:none !important;}
-
-    /* ===== TOPBAR ===== */
-    .topbar{
-      position:sticky; top:0; z-index:10;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      padding:14px 16px;
-      background: rgba(248,245,240,.86);
-      backdrop-filter: blur(12px);
-      border-bottom:1px solid var(--line);
-    }
-
-    .brand{display:flex; align-items:center; gap:12px; min-width: 220px;}
-    .logo{
-      width:44px; height:44px; border-radius: 14px;
-      display:grid; place-items:center;
-      border:1px solid rgba(217,184,122,.55);
-      background: linear-gradient(180deg, rgba(238,217,166,.85), rgba(217,184,122,.85));
-      color:#ffffff;
-      font-weight:950;
-      box-shadow: var(--shadow2);
-      user-select:none;
-      -webkit-user-select:none;
-      cursor: default;
-    }
-    .brand-text{min-width:0}
-    .brand-name{letter-spacing:.18em; font-weight:950; font-size:12px; white-space:nowrap}
-    .brand-sub{color:var(--muted); font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 320px}
-
-    .top-actions{display:flex; align-items:center; gap:10px; width:100%; max-width: 860px; justify-content:flex-end;}
-    .search-wrap{flex:1; max-width:560px}
-    .search-wrap input{
-      width:100%;
-      padding:12px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      color:var(--text);
-      outline:none;
-      box-shadow: 0 1px 0 rgba(17,12,7,.02);
-    }
-    .search-wrap input::placeholder{color: rgba(111,104,96,.75)}
-    .search-wrap input:focus{border-color: rgba(217,184,122,.7); box-shadow: var(--focus);}
-
-    .btn{
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:900;
-      letter-spacing:.02em;
-      white-space:nowrap;
-      box-shadow: 0 1px 0 rgba(17,12,7,.02);
-    }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(238,217,166,.95), rgba(217,184,122,.95));
-      border-color: rgba(217,184,122,.55);
-      color:#2B2622;
-    }
-    .btn:hover{border-color: rgba(217,184,122,.75)}
-    .btn:active{transform: translateY(1px)}
-
-    .cart-btn{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      color:var(--text);
-      cursor:pointer;
-      box-shadow: 0 1px 0 rgba(17,12,7,.02);
-      font-weight:950;
-    }
-    .cart-count{
-      min-width: 22px; height: 22px; padding: 0 6px;
-      border-radius: 999px;
-      display:grid; place-items:center;
-      background: rgba(217,184,122,.22);
-      border:1px solid rgba(217,184,122,.55);
-      color: var(--text);
-      font-weight:950;
-      font-size:12px;
-    }
-
-    /* ===== LAYOUT ===== */
-    .layout{
-      display:grid;
-      grid-template-columns: 330px 1fr;
-      gap:18px;
-      padding: 16px;
-      max-width: 1320px;
-      margin: 0 auto;
-    }
-
-    /* ===== FILTERS ===== */
-    .filters{
-      position:sticky; top:78px; align-self:start;
-      background: rgba(239,231,218,.82);
-      border:1px solid var(--line);
-      border-radius: var(--r2);
-      padding:14px;
-      box-shadow: var(--shadow);
-    }
-    .panel-title{
-      font-weight:950;
-      letter-spacing:.14em;
-      font-size:12px;
-      color: var(--text);
-      margin: 4px 0 12px;
-    }
-    .field{display:flex; flex-direction:column; gap:6px; margin-bottom:10px;}
-    .field span{font-size:12px; color:var(--muted); font-weight:800}
-    .field select, .field input, .field textarea{
-      padding:11px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      color:var(--text);
-      outline:none;
-    }
-    .field textarea{min-height:140px; resize:vertical}
-    .field select:focus, .field input:focus, .field textarea:focus{
-      border-color: rgba(217,184,122,.7);
-      box-shadow: var(--focus);
-    }
-
-    .note{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px dashed rgba(217,184,122,.60);
-      color: var(--muted);
-      background: rgba(255,255,255,.72);
-    }
-    .note-title{color:var(--text); font-weight:950; margin-bottom:6px}
-    .hint{color:var(--muted); font-size:12px; margin-top:4px}
-
-    /* ===== CONTENT ===== */
-    .content-head{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      padding: 4px 2px 12px;
-      gap:10px;
-    }
-    .results{font-weight:950; color:var(--text)}
-
-    .brands{display:flex; flex-direction:column; gap:14px;}
-    .brand-section{
-      background: rgba(255,255,255,.86);
-      border:1px solid var(--line);
-      border-radius: var(--r2);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .brand-header{
-      padding:12px 14px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border-bottom:1px solid var(--line);
-      background: rgba(243,238,231,.82);
-    }
-    .brand-title{
-      font-weight:950;
-      letter-spacing:.06em;
-      color:var(--text);
-      font-size:14px;
-      min-width:0;
-    }
-    .brand-pill{
-      font-size:11px;
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(217,184,122,.55);
-      color: var(--text);
-      background: rgba(217,184,122,.18);
-      white-space:nowrap;
-      font-weight:900;
-    }
-    .brand-body{padding: 12px 12px 12px;}
-    .list{display:flex; flex-direction:column; gap:10px;}
-
-    .item{
-      background: rgba(255,255,255,.92);
-      border:1px solid var(--line);
-      border-radius: 18px;
-      padding: 12px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-    /* Imagen opcional */
-    .item-media{
-  width: 92px;
-  aspect-ratio: 1/1;
-      border-radius: 16px;
-      flex-shrink:0;
-      border:1px solid rgba(217,184,122,.35);
-      background:
-        radial-gradient(120px 120px at 30% 20%, rgba(217,184,122,.18), transparent 55%),
-        rgba(243,238,231,.7);
-      overflow:hidden;
-      display:grid;
-      place-items:center;
-    }
-    .item-media img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      display:block;
-      background: transparent;
-    }
-    .media-ph{
-      font-size:11px;
-      color: rgba(111,104,96,.92);
-      text-align:center;
-      padding:8px;
-      line-height:1.15;
-      font-weight:800;
-    }
-
-    .item-left{min-width:0; flex:1}
-    .item-name{
-      margin:0 0 6px;
-      font-weight:950;
-      font-size:15px;
-      line-height:1.15;
-      color: var(--text);
-    }
-    .item-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      color: var(--muted);
-      font-size:12px;
-    }
-    .chip{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(227,216,200,.9);
-      background: rgba(243,238,231,.9);
-      font-weight:800;
-      color: var(--text);
-    }
-    .chip.gold{
-      border-color: rgba(217,184,122,.55);
-      background: rgba(217,184,122,.18);
-      color: var(--text);
-      font-weight:900;
-    }
-
-    .item-note{
-      margin-top:8px;
-      color: var(--muted);
-      font-size:12px;
-      word-break: break-word;
-      font-weight:700;
-    }
-
-    .item-actions{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      align-items:flex-end;
-      flex-shrink:0;
-    }
-    .add-btn{
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(217,184,122,.55);
-      background: linear-gradient(180deg, rgba(238,217,166,.92), rgba(217,184,122,.92));
-      color: var(--text);
-      cursor:pointer;
-      font-weight:950;
-      white-space:nowrap;
-      box-shadow: 0 8px 18px rgba(217,184,122,.18);
-    }
-    .add-btn:hover{border-color: rgba(217,184,122,.80)}
-    .micro{
-      font-size:11px;
-      color:rgba(111,104,96,.92);
-      text-align:right;
-      max-width: 150px;
-      font-weight:800;
-    }
-
-    /* Admin por item */
-    .admin-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      margin-top: 2px;
-    }
-    .img-btn{
-      font-size:11px;
-      padding:7px 9px;
-      border-radius: 12px;
-      border:1px dashed rgba(217,184,122,.70);
-      background: rgba(243,238,231,.9);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:950;
-      white-space:nowrap;
-    }
-    .img-btn:hover{border-color: rgba(217,184,122,.90)}
-    .danger-btn{
-      font-size:11px;
-      padding:7px 9px;
-      border-radius: 12px;
-      border:1px solid rgba(255,107,107,.38);
-      background: rgba(255,107,107,.10);
-      color: #b32626;
-      cursor:pointer;
-      font-weight:950;
-    }
-
-    /* Footer */
-    .footer{
-      max-width:1320px;
-      margin: 18px auto 28px;
-      padding: 0 16px;
-      display:flex; justify-content:space-between; align-items:center;
-      color: var(--muted);
-      font-size: 12px;
-      gap:12px;
-      flex-wrap:wrap;
-      font-weight:800;
-    }
-
-    /* Backdrop + Drawer */
-    .backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.35);
-      z-index: 30;
-    }
-
-    .drawer{
-      position:fixed; top:0; right:0; bottom:0;
-      width: min(460px, 92vw);
-      background: rgba(248,245,240,.98);
-      border-left:1px solid var(--line);
-      z-index: 40;
-      transform: translateX(105%);
-      transition: transform .22s ease;
-      display:flex; flex-direction:column;
-      box-shadow: -18px 0 28px rgba(17,12,7,.10);
-    }
-    .drawer.open{transform: translateX(0)}
-    .drawer-head{
-      padding: 14px;
-      display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.75);
-    }
-    .drawer-title{font-weight:950; color: var(--text)}
-    .drawer-sub{color:var(--muted); font-size:12px; margin-top:3px; font-weight:800}
-    .icon-btn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.92);
-      color: var(--text);
-      border-radius: 12px;
-      width:38px; height:38px;
-      cursor:pointer;
-      font-weight:950;
-    }
-    .drawer-body{padding: 12px 14px; overflow:auto; flex:1;}
-    .cart-item{
-      padding: 10px 12px;
-      border-radius: 16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.88);
-      margin-bottom: 10px;
-    }
-    .ci-name{font-weight:950; font-size:13px; line-height:1.15; color:var(--text)}
-    .ci-meta{color:var(--muted); font-size:12px; margin-top:4px; font-weight:750}
-    .qty-row{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px}
-    .qty-controls{display:flex; align-items:center; gap:8px}
-    .qbtn{
-      width:34px; height:34px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(243,238,231,.9);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:950;
-    }
-    .qval{min-width: 22px; text-align:center; font-weight:950}
-    .rm{
-      border:1px solid rgba(255,107,107,.30);
-      background: rgba(255,107,107,.10);
-      color: #b32626;
-      padding: 0 10px;
-      width:auto;
-      white-space:nowrap;
-    }
-    .drawer-foot{
-      padding: 14px;
-      border-top:1px solid var(--line);
-      background: rgba(255,255,255,.75);
-    }
-
-    /* Modal */
-    .modal{
-      position:fixed; inset:0;
-      z-index:60;
-      display:grid;
-      place-items:center;
-      background: rgba(0,0,0,.35);
-      padding:16px;
-    }
-    .modal-card{
-      width:min(920px, 96vw);
-      background: rgba(248,245,240,.98);
-      border:1px solid var(--line);
-      border-radius: var(--r2);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modal-head{
-      padding:14px;
-      display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.75);
-    }
-    .modal-title{font-weight:950; color:var(--text)}
-    .modal-sub{color:var(--muted); font-size:12px; margin-top:4px; font-weight:800}
-    .modal-body{padding:14px}
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .row .btn{flex:1}
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .layout{grid-template-columns: 1fr; }
-      .filters{position:relative; top:auto}
-      .top-actions{max-width: 100%;}
-      .micro{display:none}
-      .brand-sub{max-width: 190px;}
-    }
-    @media (max-width: 560px){
-      .brand{min-width:auto}
-      .brand-sub{display:none}
-      .topbar{padding:12px}
-      .item{flex-direction:column;}
-.item-media{
-  width:100%;
-  aspect-ratio: 1/1;
-  height:auto;
+<style>
+:root{
+  --ivory:#fff8fc;
+  --rose:#ff4fa7;
+  --rose2:#ff8fc8;
+  --rose3:#ffc6e2;
+  --lila:#b784ff;
+  --gold:#f2c66d;
+  --gold2:#ffe6a8;
+  --ink:#4a1732;
+  --muted:#875b72;
+  --line:rgba(255,79,167,.18);
+  --shadow:0 24px 70px rgba(219,67,145,.18);
+  --shadow2:0 12px 30px rgba(148,75,155,.16);
 }
-      .top-actions{
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 3%, rgba(255,79,167,.22), transparent 32%),
+    radial-gradient(circle at 92% 8%, rgba(183,132,255,.20), transparent 30%),
+    radial-gradient(circle at 50% 42%, rgba(242,198,109,.14), transparent 36%),
+    linear-gradient(180deg,#fff7fb 0%,#ffeaf5 44%,#fff9fc 100%);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.9) 0 1px,transparent 2px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,black,transparent 72%);
+  opacity:.5;
+  z-index:-1;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.sparkle{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+.sparkle i{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:radial-gradient(circle,#fff 0 20%,#ffd1e7 21% 55%,transparent 56%);
+  filter:drop-shadow(0 0 10px #ff9dca);
+  animation:float 9s infinite ease-in-out;
+  opacity:.75;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0) scale(.8) rotate(0)}
+  50%{transform:translateY(-42px) scale(1.25) rotate(30deg)}
+}
+
+.appbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:10px 14px;
+  background:rgba(255,247,251,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,79,167,.13);
+}
+.appbar-inner{
+  max-width:1280px;
+  margin:auto;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand-mini{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  user-select:none;
+}
+.brand-logo-small{
+  width:170px;
+  height:64px;
+  object-fit:contain;
+  border-radius:16px;
+  filter:drop-shadow(0 8px 18px rgba(255,79,167,.16));
+}
+.quick-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.icon-btn{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  position:relative;
+  border:1px solid rgba(255,79,167,.18);
+  background:rgba(255,255,255,.82);
+  border-radius:999px;
+  color:var(--ink);
+  box-shadow:0 8px 24px rgba(255,79,167,.12);
+  font-weight:950;
+}
+.badge{
+  position:absolute;
+  right:-5px;
+  top:-6px;
+  min-width:23px;
+  height:23px;
+  padding:0 6px;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));
+  color:#6b2a00;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  border:2px solid white;
+}
+
+.hero{
+  max-width:1280px;
+  margin:18px auto 0;
+  padding:0 14px;
+}
+.hero-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:38px;
+  padding:34px 22px 30px;
+  background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(255,225,241,.78));
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:var(--shadow);
+}
+.hero-card:before{
+  content:"";
+  position:absolute;
+  inset:-60px -80px auto auto;
+  width:280px;
+  height:280px;
+  background:radial-gradient(circle,rgba(255,79,167,.24),transparent 62%);
+  border-radius:50%;
+}
+.hero-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:430px 1fr;
+  gap:28px;
+  align-items:center;
+}
+.hero-logo-real{
+  width:100%;
+  max-width:420px;
+  aspect-ratio:1/1;
+  object-fit:contain;
+  border-radius:36px;
+  filter:drop-shadow(0 22px 45px rgba(255,79,167,.18));
+}
+.hero-copy{
+  text-align:left;
+}
+.hero-copy p{
+  font-size:clamp(16px,2vw,20px);
+  color:#7c3c5b;
+  max-width:780px;
+  line-height:1.62;
+  margin:0 0 18px;
+  font-weight:750;
+}
+.hero-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.chip{
+  border:1px solid rgba(255,79,167,.18);
+  background:rgba(255,255,255,.72);
+  padding:10px 13px;
+  border-radius:999px;
+  font-weight:900;
+  color:#7a3154;
+  box-shadow:0 8px 20px rgba(255,79,167,.1);
+}
+
+.search-zone{
+  max-width:1280px;
+  margin:14px auto;
+  padding:0 14px;
+  position:sticky;
+  top:78px;
+  z-index:40;
+}
+.search-card{
+  display:block;
+  padding:10px;
+  border-radius:24px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(255,79,167,.16);
+  backdrop-filter:blur(16px);
+  box-shadow:0 18px 44px rgba(255,79,167,.12);
+}
+.search-card input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  padding:14px;
+  font-size:16px;
+  color:var(--ink);
+  font-weight:850;
+}
+.search-card input::placeholder{color:#a37087}
+
+.main{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 14px 120px;
+  display:grid;
+  grid-template-columns:285px 1fr;
+  gap:18px;
+}
+.filters{
+  align-self:start;
+  position:sticky;
+  top:155px;
+  padding:16px;
+  border-radius:28px;
+  background:rgba(255,255,255,.70);
+  border:1px solid rgba(255,79,167,.14);
+  box-shadow:var(--shadow2);
+  backdrop-filter:blur(14px);
+}
+.panel-title{
+  font-family:Cambria,Georgia,"Times New Roman",serif;
+  font-size:25px;
+  font-weight:900;
+  color:#b02c76;
+  margin:0 0 3px;
+}
+.panel-sub{
+  margin:0 0 12px;
+  color:#9a5575;
+  font-size:12px;
+  font-weight:850;
+}
+.field{
+  display:grid;
+  gap:7px;
+  margin:11px 0;
+}
+.field label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:#92506e;
+  font-weight:950;
+}
+.field select,.field input,.field textarea{
+  border:1px solid rgba(255,79,167,.18);
+  background:rgba(255,255,255,.84);
+  border-radius:16px;
+  padding:12px;
+  color:var(--ink);
+  outline:0;
+  font-weight:850;
+}
+.field textarea{
+  min-height:160px;
+  resize:vertical;
+}
+.segment{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:12px 0;
+}
+.seg{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,79,167,.18);
+  background:#fff;
+  font-weight:950;
+  color:#853257;
+}
+.seg.active{
+  background:linear-gradient(135deg,#ff4fa7,#b784ff);
+  color:#fff;
+  border:0;
+  box-shadow:0 10px 20px rgba(255,79,167,.2);
+}
+
+.content-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin:4px 0 12px;
+}
+.small{
+  color:#8a5d70;
+  font-weight:900;
+}
+.tabs{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  padding:4px 0 14px;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;
+  border:1px solid rgba(255,79,167,.18);
+  background:rgba(255,255,255,.78);
+  border-radius:999px;
+  padding:12px 15px;
+  color:#8a3158;
+  font-weight:950;
+  box-shadow:0 8px 18px rgba(255,79,167,.08);
+}
+.tab.active{
+  background:linear-gradient(135deg,#ff4fa7,#b784ff);
+  color:#fff;
+  border:0;
+}
+
+.showcase{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:18px;
+}
+.mini-card{
+  position:relative;
+  overflow:hidden;
+  min-height:132px;
+  border-radius:26px;
+  padding:14px;
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,217,237,.80));
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:var(--shadow2);
+}
+.mini-card b{
+  display:block;
+  font-family:Cambria,Georgia,"Times New Roman",serif;
+  font-size:19px;
+  color:#a92c72;
+}
+.mini-card span{
+  font-weight:850;
+  color:#87536a;
+  font-size:13px;
+}
+.mini-card small{
+  display:block;
+  margin-top:7px;
+  color:#9b6c7f;
+  font-weight:800;
+  font-size:12px;
+  line-height:1.25;
+}
+.mini-card:after{
+  content:"✦";
+  position:absolute;
+  right:18px;
+  bottom:8px;
+  font-size:34px;
+  color:rgba(255,79,167,.22);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+}
+.card{
+  position:relative;
+  overflow:hidden;
+  border-radius:30px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:var(--shadow2);
+  display:flex;
   flex-direction:column;
-  align-items:stretch;
+  min-height:100%;
+  transition:transform .22s ease,box-shadow .22s ease;
 }
-
-.search-wrap{
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 26px 60px rgba(255,79,167,.2);
+}
+.img-wrap{
+  position:relative;
+  margin:12px 12px 0;
+  border-radius:24px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff,#ffeaf5);
+  aspect-ratio:1/1;
+  display:grid;
+  place-items:center;
+}
+.img-wrap img{
   width:100%;
-  max-width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:8px;
+  transition:transform .35s ease;
 }
-
-.cart-btn{
+.card:hover img{transform:scale(1.045)}
+.ribbon{
+  position:absolute;
+  left:12px;
+  top:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));
+  font-size:11px;
+  font-weight:950;
+  color:#783400;
+  box-shadow:0 8px 18px rgba(244,201,112,.2);
+}
+.heart{
+  position:absolute;
+  right:12px;
+  top:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 8px 18px rgba(255,79,167,.14);
+  font-size:19px;
+}
+.heart.active{
+  background:linear-gradient(135deg,#ff4fa7,#b784ff);
+  color:white;
+}
+.info{
+  padding:13px 14px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex:1;
+}
+.brand{
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#a86c83;
+  font-weight:950;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.name{
+  font-weight:950;
+  font-size:17px;
+  line-height:1.18;
+  min-height:40px;
+  color:#4f1734;
+}
+.meta{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.meta span{
+  font-size:12px;
+  font-weight:950;
+  border:1px solid rgba(255,79,167,.16);
+  background:rgba(255,239,247,.82);
+  border-radius:999px;
+  padding:6px 8px;
+  color:#803154;
+}
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:950;
+  color:#0d9c68;
+}
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#16c784;
+  box-shadow:0 0 0 4px rgba(22,199,132,.12);
+}
+.status.low{color:#a76b00}
+.status.low .dot{background:#ffb51f}
+.status.out{color:#b32626}
+.status.out .dot{background:#ff4b4b}
+.price-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:auto;
+}
+.price{
+  font-family:Cambria,Georgia,"Times New Roman",serif;
+  font-weight:900;
+  font-size:20px;
+  color:#b02c76;
+}
+.add{
   width:100%;
-  justify-content:center;
+  border:0;
+  border-radius:18px;
+  padding:13px;
+  color:white;
+  font-weight:950;
+  background:linear-gradient(135deg,#ff4fa7,#b784ff);
+  box-shadow:0 14px 28px rgba(255,79,167,.18);
 }
-      .item-actions{
-        flex-direction:row;
-        justify-content:space-between;
-        align-items:center;
-        width:100%;
-      }
-      .admin-row{justify-content:flex-start;}
-    }
+.add:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
 
-    /* Admin UI */
-    #adminPanel{display:none;}
-  </style>
+.drawer-back{
+  position:fixed;
+  inset:0;
+  background:rgba(52,14,38,.32);
+  z-index:80;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+}
+.drawer-back.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  width:min(460px,94vw);
+  height:100%;
+  z-index:90;
+  transform:translateX(110%);
+  transition:.25s ease;
+  background:rgba(255,248,252,.96);
+  border-left:1px solid rgba(255,79,167,.18);
+  box-shadow:-24px 0 60px rgba(139,39,98,.22);
+  display:flex;
+  flex-direction:column;
+}
+.drawer.open{transform:translateX(0)}
+.drawer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid rgba(255,79,167,.12);
+}
+.drawer-head h3{
+  font-family:Cambria,Georgia,"Times New Roman",serif;
+  margin:0;
+  font-size:28px;
+  color:#a72c72;
+}
+.cart-items{
+  padding:14px;
+  overflow:auto;
+  flex:1;
+}
+.cart-item{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:10px;
+  align-items:center;
+  margin-bottom:10px;
+  padding:10px;
+  border-radius:20px;
+  background:white;
+  border:1px solid rgba(255,79,167,.12);
+}
+.cart-item img{
+  width:64px;
+  height:64px;
+  border-radius:16px;
+  object-fit:contain;
+  background:#fff3f9;
+}
+.cart-item b{
+  display:block;
+  font-size:13px;
+  line-height:1.2;
+}
+.cart-item span{
+  display:block;
+  font-size:12px;
+  color:#8a5d70;
+  margin-top:4px;
+}
+.cart-controls{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:8px;
+}
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.qty-btn,.remove{
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#ffe3ef;
+  color:#b32668;
+  font-weight:950;
+  display:grid;
+  place-items:center;
+}
+.qty-number{
+  min-width:34px;
+  height:34px;
+  border-radius:999px;
+  background:#fff5fa;
+  border:1px solid rgba(255,79,167,.14);
+  display:grid;
+  place-items:center;
+  font-weight:950;
+  color:#812d55;
+}
+.drawer-foot{
+  padding:16px;
+  border-top:1px solid rgba(255,79,167,.12);
+  background:rgba(255,255,255,.55);
+}
+.total-line{
+  display:flex;
+  justify-content:space-between;
+  font-weight:950;
+  margin-bottom:12px;
+}
+
+.admin{
+  display:none;
+  max-width:1280px;
+  margin:0 auto 80px;
+  padding:0 14px;
+}
+body.admin-on .admin{display:block}
+.admin-box{
+  border-radius:28px;
+  padding:16px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(255,79,167,.16);
+  box-shadow:var(--shadow2);
+}
+.admin-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+.admin-actions .add{
+  width:auto;
+  padding:13px 16px;
+}
+#adminText{width:100%}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%) translateY(30px);
+  background:linear-gradient(135deg,#ff4fa7,#b784ff);
+  color:white;
+  padding:13px 18px;
+  border-radius:999px;
+  font-weight:950;
+  box-shadow:0 18px 38px rgba(255,79,167,.25);
+  opacity:0;
+  pointer-events:none;
+  transition:.22s;
+  z-index:100;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+.empty{
+  padding:30px;
+  text-align:center;
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(255,79,167,.14);
+  color:#8a5d70;
+  font-weight:900;
+}
+.footer{
+  max-width:1280px;
+  margin:0 auto;
+  padding:30px 14px 42px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#8a5d70;
+  font-weight:850;
+  font-size:13px;
+}
+
+@media(max-width:1180px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .showcase{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hero-grid{grid-template-columns:360px 1fr}
+}
+@media(max-width:900px){
+  .hero-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .hero-copy{text-align:center}
+  .hero-copy p{margin-left:auto;margin-right:auto}
+  .hero-chips{justify-content:center}
+  .main{display:block}
+  .filters{
+    position:relative;
+    top:auto;
+    margin-bottom:18px;
+  }
+  .showcase{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .search-zone{top:78px}
+  .content-head{margin-top:12px}
+}
+@media(max-width:600px){
+  .appbar{padding:8px 10px}
+  .brand-logo-small{width:145px;height:54px}
+  .hero{margin-top:12px;padding:0 10px}
+  .hero-card{border-radius:30px;padding:24px 14px}
+  .hero-logo-real{max-width:300px;border-radius:28px}
+  .hero-copy p{text-align:center;font-size:15px}
+  .search-zone{padding:0 10px;top:66px}
+  .main{padding:0 10px 100px}
+  .filters{border-radius:24px}
+  .showcase{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr 1fr}
+  .card{border-radius:24px}
+  .name{font-size:14px;min-height:36px}
+  .price{font-size:17px}
+  .meta span{font-size:11px;padding:5px 7px}
+  .add{padding:12px}
+}
+@media(max-width:390px){
+  .grid{grid-template-columns:1fr}
+  .showcase{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
-<header class="topbar">
-  <div class="brand">
-    <div class="logo" id="logo" aria-hidden="true" title="LUXURY BY DARLIN">L</div>
-    <div class="brand-text">
-      <div class="brand-name">LUXURY BY DARLIN</div>
-      <div class="brand-sub">Catálogo • Carrito • Pedido por WhatsApp</div>
-    </div>
-  </div>
+<div class="sparkle" id="sparkle"></div>
 
-  <div class="top-actions">
-    <div class="search-wrap">
-      <input id="searchInput" type="search" placeholder="Buscar por perfume o marca…" autocomplete="off" />
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="brand-mini" id="secretAdmin" title="VELORA">
+      <img class="brand-logo-small" src="logo-velora.jpeg" alt="VELORA Boutique de Perfumes">
     </div>
 
-    <div id="adminPanel">
-      <button id="importBtn" class="btn" type="button" title="Solo admin">ADMIN</button>
+    <div class="quick-actions">
+      <button class="icon-btn" type="button" onclick="openCart()" aria-label="Abrir carrito">
+        🛒 <span class="badge" id="cartCount">0</span>
+      </button>
     </div>
-
-    <button id="cartBtn" class="cart-btn" type="button" aria-label="Abrir carrito">
-      <span aria-hidden="true">🛒</span>
-      <span class="cart-count" id="cartCount">0</span>
-    </button>
   </div>
 </header>
 
-<main class="layout">
-  <aside class="filters">
-    <div class="panel-title">Filtros</div>
-
-    <label class="field">
-      <span>Marca</span>
-      <select id="brandSelect"></select>
-    </label>
-
-    <label class="field">
-      <span>Género</span>
-      <select id="genderSelect"></select>
-    </label>
-
-    <label class="field">
-      <span>Tamaño (ml)</span>
-      <select id="sizeSelect"></select>
-    </label>
-
-    <label class="field">
-      <span>Tipo (EDT/EDP/Parfum…)</span>
-      <select id="typeSelect"></select>
-    </label>
-
-    <label class="field">
-      <span>Orden</span>
-      <select id="sortSelect">
-        <option value="brand">Marca (A–Z)</option>
-        <option value="name">Nombre (A–Z)</option>
-      </select>
-    </label>
-
-    <button id="clearFilters" class="btn" type="button">Limpiar filtros</button>
-
-    <div class="note">
-      <div class="note-title">Pedidos</div>
-      <p style="margin:0;font-weight:700">Los precios se consultan vía WhatsApp. Agrega tus perfumes al carrito y envía el pedido.</p>
-    </div>
-
-    </div>
-  </aside>
-
-  <section class="content">
-    <div class="content-head">
-      <div class="result-meta">
-        <div class="results" id="resultsCount">0 productos</div>
-        <div class="hint">Catálogo ordenado por marca. Usa búsqueda o filtros.</div>
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-grid">
+      <img class="hero-logo-real" src="logo-velora.jpeg" alt="VELORA Boutique de Perfumes">
+      <div class="hero-copy">
+        <p>Una boutique de perfumes femenina, brillante y elegante. Explora fragancias por marca, género y estilo; agrega al carrito y envía tu pedido directo por WhatsApp.</p>
+        <div class="hero-chips">
+          <span class="chip">✨ Fragancias premium</span>
+          <span class="chip">🌸 Mujer · Hombre · Unisex</span>
+          <span class="chip">💎 Perfumes especiales</span>
+          <span class="chip">📲 Pedido por WhatsApp</span>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div id="brands" class="brands"></div>
-  </section>
-</main>
+<section class="search-zone">
+  <div class="search-card">
+    <input id="search" type="search" placeholder="Buscar perfume, marca o estilo..." autocomplete="off">
+  </div>
+</section>
 
-<div id="drawerBackdrop" class="backdrop hidden"></div>
+<section class="main" id="catalogo">
+  <aside class="filters" id="filters">
+    <h3 class="panel-title">Filtros VELORA</h3>
+    <p class="panel-sub">Encuentra tu fragancia ideal</p>
 
-<aside id="cartDrawer" class="drawer" aria-label="Carrito">
-  <div class="drawer-head">
-    <div>
-      <div class="drawer-title">Tu carrito</div>
-      <div class="drawer-sub">Se enviará por WhatsApp a +1 (829) 475-5065</div>
+    <div class="segment">
+      <button class="seg active" type="button" data-gender="all">Todos</button>
+      <button class="seg" type="button" data-gender="Mujer">Mujer</button>
+      <button class="seg" type="button" data-gender="Hombre">Hombre</button>
+      <button class="seg" type="button" data-gender="Unisex">Unisex</button>
     </div>
-    <button id="closeCart" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
+
+    <div class="field">
+      <label>Marca</label>
+      <select id="brandFilter"><option value="">Todas las marcas</option></select>
+    </div>
+
+    <div class="field">
+      <label>Concentración</label>
+      <select id="concFilter"><option value="">Todas</option></select>
+    </div>
+
+    <div class="field">
+      <label>Disponibilidad</label>
+      <select id="stockFilter">
+        <option value="">Todo</option>
+        <option value="available">Disponible</option>
+        <option value="new">Novedades</option>
+        <option value="out">Agotados</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Ordenar</label>
+      <select id="sortFilter">
+        <option value="featured">Destacados</option>
+        <option value="price-asc">Precio menor a mayor</option>
+        <option value="price-desc">Precio mayor a menor</option>
+        <option value="brand">Marca A-Z</option>
+        <option value="name">Nombre A-Z</option>
+      </select>
+    </div>
+
+    <button class="add" type="button" onclick="clearFilters()">Limpiar filtros</button>
+  </aside>
+
+  <main>
+    <div class="content-head">
+      <div class="small" id="resultInfo">Cargando fragancias...</div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" type="button" data-section="all">Todas</button>
+      <button class="tab" type="button" data-section="new">Novedades</button>
+      <button class="tab" type="button" data-section="best">Más vendidos</button>
+      <button class="tab" type="button" data-section="recommended">Recomendados</button>
+      <button class="tab" type="button" data-section="favorites">Favoritos</button>
+    </div>
+
+    <div class="showcase" id="showcase"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty hidden" id="empty">No encontré perfumes con esos filtros.</div>
+  </main>
+</section>
+
+<section class="admin">
+  <div class="admin-box">
+    <h3 class="panel-title">Panel admin oculto</h3>
+    <p class="small">Pega líneas en formato: Marca | Perfume | ML | Género | Precio/Nota | Imagen</p>
+    <div class="field">
+      <textarea id="adminText" placeholder="Lattafa | Yara Candy | 100ml | Mujer | Consultar vía WhatsApp | https://..."></textarea>
+    </div>
+    <div class="admin-actions">
+      <button class="add" type="button" onclick="importAdmin()">Importar</button>
+      <button class="add" type="button" onclick="exportTxt()">Exportar TXT</button>
+      <button class="add" type="button" onclick="localStorage.removeItem('veloraCatalog');location.reload()">Restaurar archivo</button>
+    </div>
+  </div>
+</section>
+
+<div class="drawer-back" id="back" onclick="closeCart()"></div>
+
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Tu carrito</h3>
+    <button class="icon-btn" type="button" onclick="closeCart()">✕</button>
   </div>
 
-  <div id="cartItems" class="drawer-body"></div>
+  <div class="cart-items" id="cartItems"></div>
 
   <div class="drawer-foot">
-    <label class="field">
-      <span>Nombre (opcional)</span>
-      <input id="customerName" type="text" placeholder="Ej. Darlin" />
-    </label>
-    <label class="field">
-      <span>Zona/Dirección (opcional)</span>
-      <input id="customerZone" type="text" placeholder="Ej. Cabarete" />
-    </label>
-    <label class="field">
-      <span>Nota (opcional)</span>
-      <input id="customerNote" type="text" placeholder="Ej. Si hay alguna recomendación similar, envíamela" />
-    </label>
-
-    <label class="field">
-  <span>Vendedora (obligatorio)</span>
-  <select id="sellerSelect">
-    <option value="">Selecciona una vendedora</option>
-
-    <option value="💜DCG01">💜DCG01</option>
-    <option value="🤍HSJ02">🤍HSJ02</option>
-    <option value="🩷JCQ03">🩷JCQ03</option>
-    <option value="💙LAS04">💙LAS04</option>
-
-  </select>
-</label>
-    
-    <button id="sendWhatsApp" class="btn primary" type="button">Enviar pedido por WhatsApp</button>
-    <button id="clearCart" class="btn" type="button">Vaciar carrito</button>
+    <div class="total-line">
+      <span>Total estimado</span>
+      <span id="total">A consultar</span>
+    </div>
+    <button class="add" type="button" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
   </div>
 </aside>
 
 <footer class="footer">
-  <div>© <span id="year"></span> LUXURY BY DARLIN</div>
-  <div>Catálogo móvil • Carrito real • WhatsApp</div>
+  <div>© <span id="year"></span> VELORA</div>
+  <div>Boutique de Perfumes · Catálogo digital</div>
 </footer>
 
-<div id="importModal" class="modal hidden" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Administración de catálogo">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Modo Admin</div>
-        <div class="modal-sub">
-          Importa/Exporta tu catálogo. Acepta 6ta columna opcional: <b>image_url</b>. También puedes cargar el archivo <b>catalogo.txt</b>.
-        </div>
-      </div>
-      <button id="closeImport" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="note" style="margin-top:0">
-        <div class="note-title">Cargar archivo catalogo.txt (recomendado para pruebas)</div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-          <input id="fileCatalog" type="file" accept=".txt,text/plain" />
-          <button id="loadFileBtn" class="btn" type="button">Cargar archivo</button>
-        </div>
-        <div class="hint" style="margin-top:8px">Esto funciona aunque el navegador bloquee el fetch cuando abres el HTML descargado.</div>
-      </div>
-
-      <label class="field" style="margin-top:12px">
-        <span>Pega aquí (1 línea = 1 producto)</span>
-        <textarea id="importText" placeholder="Ej:
-Afnan | 9 AM Dive EDP | 100ml | Unisex | Consultar vía WhatsApp | https://.../imagen.jpg"></textarea>
-      </label>
-
-      <div class="row">
-        <button id="doImport" class="btn primary" type="button">Importar</button>
-        <button id="clearCatalog" class="btn" type="button">Borrar catálogo (local)</button>
-        <button id="exportCatalog" class="btn" type="button">Exportar (copiar)</button>
-        <button id="downloadCatalogTxt" class="btn" type="button">Descargar catalogo.txt</button>
-      </div>
-
-      <div class="hint" style="margin-top:10px">
-        Tip PRO: Para que TODOS vean imágenes y catálogo igual en cualquier teléfono, usa <b>Descargar catalogo.txt</b> y reemplaza ese archivo en tu GitHub (repo oficial).
-      </div>
-    </div>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* ===================== CONFIG ===================== */
-const WHATSAPP_NUMBER = "18294755065";
+const WHATSAPP = "18294755065";
+const BASE = "https://nuevalux.com";
 const DEFAULT_NOTE = "Consultar vía WhatsApp";
+const ADMIN_SECRET = "Velora 2026";
+const LOGO = "logo-velora.jpeg";
 
-const LS_CATALOG_V1 = "LBD_CATALOG_V1";
-const LS_CATALOG = "LBD_CATALOG_V2";
-const LS_CART = "LBD_CART_V1";
+const PRICING = {
+  logistica:250,
+  redondeo:50,
+  g1:700,
+  g2:900,
+  g3:1100,
+  g4:1300
+};
 
-const CATALOG_TXT_PATH = "./catalogo.txt";
+const BEST_WOMEN = ["yara","yara candy","good girl","delina","born in roma","libre","black opium","la belle","daisy","sweet tooth","burberry goddess","gucci bloom","scandal","bright crystal","rose goldea"];
+const BEST_MEN = ["asad","hawas","club de nuit intense","9 pm","le beau","sauvage","eros","y le parfum","invictus","one million","ultra male","scandal for men","prada l'homme","legend spirit"];
+const BEST_UNISEX = ["khamrah","baccarat","amber oud","erba pura","instant crush","oud for greatness","naxos","tribeca","greenwich","oud","arabians tonka","liquid brun","vulcan"];
 
-/* Admin */
-const ADMIN_SECRET = "Luxury 2026";
-let isAdmin = false;
+let allProducts = [];
+let filtered = [];
+let cart = [];
+let favorites = [];
+let activeGender = "all";
+let activeSection = "all";
 
-/* ===================== UTILS ===================== */
-const el = (id)=>document.getElementById(id);
-const norm = (s)=> (s ?? "").toString().trim();
-const uniq = (arr)=> Array.from(new Set(arr)).filter(v=>v!=null && v!=="").sort((a,b)=>a.localeCompare(b,"es"));
+const $ = id => document.getElementById(id);
 
-function slug(s){
-  return norm(s).toLowerCase()
+function money(n){
+  return "RD$" + Number(n || 0).toLocaleString("es-DO");
+}
+
+function publicPrice(cost){
+  cost = Number(cost || 0);
+  let g = cost < 2500 ? PRICING.g1 : cost < 5000 ? PRICING.g2 : cost < 8000 ? PRICING.g3 : PRICING.g4;
+  return Math.ceil((cost + g + PRICING.logistica) / PRICING.redondeo) * PRICING.redondeo;
+}
+
+function genderText(g){
+  g = String(g || "").trim();
+  if(["F","f","Mujer","Femenino","feminine"].includes(g)) return "Mujer";
+  if(["M","m","Hombre","Masculino","masculine"].includes(g)) return "Hombre";
+  return "Unisex";
+}
+
+function imgUrl(u){
+  if(!u) return "";
+  u = String(u).trim();
+  if(u.startsWith("http")) return u;
+  if(u.startsWith("/")) return BASE + u;
+  return u;
+}
+
+function cleanText(s){
+  return String(s || "").trim();
+}
+
+function idFrom(p,i){
+  return cleanText(p.id || p.slug || `${p.brand}-${p.name}-${p.size}-${i}`).toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu,"-")
     .replace(/^-+|-+$/g,"");
 }
-function parseMl(value){
-  const s = norm(value);
-  if(!s) return null;
-  const m = s.match(/(\d{1,4})\s*ml/i);
-  if(m) return Number(m[1]);
-  const n = s.match(/(\d{1,4})/);
-  return n ? Number(n[1]) : null;
-}
-function splitPipes(line){
-  return line.split(/[|｜¦│]/).map(p=>p.trim());
-}
 
-/* Detecta tipo desde el nombre (solo si aparece) */
-function detectType(name){
-  const s = norm(name).toUpperCase();
-  const types = ["EXTRAIT","ELIXIR","PARFUM","EDP","EDT","COLOGNE","INTENSE"];
+function detectConcentration(name){
+  const s = cleanText(name).toUpperCase();
+  const types = ["EXTRAIT","ELIXIR","PARFUM","EDP","EDT","COLOGNE","INTENSE","ABSOLU"];
   for(const t of types){
-    const re = new RegExp(`\\b${t}\\b`, "i");
-    if(re.test(s)) return t;
+    if(new RegExp("\\b"+t+"\\b","i").test(s)) return t;
   }
-  return "N/D";
+  return "Perfume";
 }
 
-/* ===================== STORAGE ===================== */
-function loadCatalogLocal(){
+function normalize(p,i){
+  let cost = Number(p.price || p.costo || 0);
+  let explicitPrice = Number(String(p.precioPublico || "").replace(/[^0-9.]/g,""));
+  let price = explicitPrice || (cost ? publicPrice(cost) : 0);
+  let note = p.note || p.nota || "";
+  if(!note) note = DEFAULT_NOTE;
+
+  return {
+    id:idFrom(p,i),
+    slug:p.slug || "",
+    brand:cleanText(p.brand || p.marca || "VELORA"),
+    name:cleanText(p.name || p.nombre || "Perfume"),
+    size:cleanText(p.size || p.ml || ""),
+    concentration:cleanText(p.concentration || p.tipo || detectConcentration(p.name || p.nombre || "")),
+    gender:genderText(p.gender || p.genero),
+    cost,
+    price,
+    note,
+    stock:cleanText(p.stock_label || p.estado || "Disponible"),
+    stockStatus:cleanText(p.stock_status || ""),
+    isNew:!!p.is_new,
+    image:imgUrl(p.image_url || p.imagen || p.image || "")
+  };
+}
+
+function parseCatalog(text){
+  text = cleanText(text);
+  if(!text) return [];
+
   try{
-    const raw = localStorage.getItem(LS_CATALOG);
-    if(raw){
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
+    let obj = JSON.parse(text);
+    let products = obj.products || obj?.props?.products || [];
+    if(Array.isArray(products)) return products.map(normalize);
+  }catch(e){}
+
+  let arr = [];
+  let lines = text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+
+  for(let i=0;i<lines.length;i++){
+    let parts = lines[i].split(/[|｜¦│]/).map(x=>x.trim());
+    if(parts.length >= 4){
+      let priceRaw = parts[4] || DEFAULT_NOTE;
+      let num = Number(String(priceRaw).replace(/[^0-9.]/g,""));
+      arr.push(normalize({
+        brand:parts[0],
+        name:parts[1],
+        size:parts[2],
+        gender:parts[3],
+        precioPublico:num || 0,
+        note:priceRaw || DEFAULT_NOTE,
+        image_url:parts[5] || ""
+      },i));
     }
-  }catch{}
-  return [];
-}
-function saveCatalogLocal(){
-  localStorage.setItem(LS_CATALOG, JSON.stringify(ALL));
-}
-function loadCart(){
-  try{
-    const raw = localStorage.getItem(LS_CART);
-    if(!raw) return {};
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed==="object" ? parsed : {};
-  }catch{
-    return {};
   }
-}
-function saveCart(){
-  localStorage.setItem(LS_CART, JSON.stringify(cart));
-}
 
-/* Migración V1 -> V2 */
-function migrateIfNeeded(){
-  try{
-    const v2 = localStorage.getItem(LS_CATALOG);
-    if(v2) return;
-    const v1raw = localStorage.getItem(LS_CATALOG_V1);
-    if(!v1raw) return;
-    const v1 = JSON.parse(v1raw);
-    if(!Array.isArray(v1)) return;
-
-    const upgraded = v1.map(p=>({
-      ...p,
-      image: p.image || null,
-      type: p.type || detectType(p.name || ""),
-    }));
-    localStorage.setItem(LS_CATALOG, JSON.stringify(upgraded));
-  }catch{}
+  return arr;
 }
 
-/* ===================== DATA / STATE ===================== */
-let ALL = [];
-let filtered = [];
-let cart = loadCart();
+async function loadCatalog(){
+  let saved = localStorage.getItem("veloraCatalog");
+  favorites = JSON.parse(localStorage.getItem("veloraFavorites") || "[]");
 
-/* ===================== SORT / GROUP ===================== */
-function sortCatalog(list, by="brand"){
-  const arr = list.slice();
-  if(by==="name"){
-    return arr.sort((a,b)=> (a.name||"").localeCompare(b.name||"", "es"));
+  if(saved){
+    allProducts = parseCatalog(saved);
+    init();
+    return;
   }
-  return arr.sort((a,b)=>{
-    const br = (a.brand||"").localeCompare(b.brand||"", "es");
-    if(br!==0) return br;
-    return (a.name||"").localeCompare(b.name||"", "es");
+
+  try{
+    let res = await fetch("catalogo.txt?" + Date.now());
+    let txt = await res.text();
+    allProducts = parseCatalog(txt);
+  }catch(e){
+    allProducts = [];
+  }
+
+  init();
+}
+
+function init(){
+  allProducts = [...new Map(allProducts.map(p => [p.id,p])).values()];
+  fillFilters();
+  bind();
+  applyFilters();
+  sparkle();
+  $("year").textContent = new Date().getFullYear();
+}
+
+function fillFilters(){
+  let brands = [...new Set(allProducts.map(p=>p.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  $("brandFilter").innerHTML = '<option value="">Todas las marcas</option>' + brands.map(b=>`<option>${escapeHtml(b)}</option>`).join("");
+
+  let conc = [...new Set(allProducts.map(p=>p.concentration).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  $("concFilter").innerHTML = '<option value="">Todas</option>' + conc.map(c=>`<option>${escapeHtml(c)}</option>`).join("");
+}
+
+function bind(){
+  $("search").oninput = applyFilters;
+  $("brandFilter").onchange = applyFilters;
+  $("concFilter").onchange = applyFilters;
+  $("stockFilter").onchange = applyFilters;
+  $("sortFilter").onchange = applyFilters;
+
+  document.querySelectorAll(".seg").forEach(b=>{
+    b.onclick = ()=>{
+      document.querySelectorAll(".seg").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      activeGender = b.dataset.gender;
+      applyFilters();
+    };
   });
-}
-function groupByBrand(list){
-  const map = new Map();
-  for(const p of list){
-    const b = p.brand || "Sin marca";
-    if(!map.has(b)) map.set(b, []);
-    map.get(b).push(p);
+
+  document.querySelectorAll(".tab").forEach(b=>{
+    b.onclick = ()=>{
+      document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      activeSection = b.dataset.section;
+      applyFilters();
+    };
+  });
+
+  if(location.search.includes("admin=true")){
+    unlockAdmin();
   }
-  return map;
+
+  let pressTimer = null;
+  $("secretAdmin").addEventListener("pointerdown",()=>{
+    pressTimer = setTimeout(()=>requestAdmin(),5000);
+  });
+  $("secretAdmin").addEventListener("pointerup",()=>clearTimeout(pressTimer));
+  $("secretAdmin").addEventListener("pointercancel",()=>clearTimeout(pressTimer));
+  $("secretAdmin").addEventListener("pointerleave",()=>clearTimeout(pressTimer));
 }
 
-/* ===================== FILTERS ===================== */
-function setOptions(select, values){
-  select.innerHTML="";
-  for(const v of values){
-    const opt=document.createElement("option");
-    opt.value=v;
-    opt.textContent=v;
-    select.appendChild(opt);
+function requestAdmin(){
+  let clave = prompt("Clave admin VELORA:");
+  if(clave === ADMIN_SECRET){
+    unlockAdmin();
+    toast("Modo admin activado");
+  }else if(clave !== null){
+    toast("Clave incorrecta");
   }
 }
-function buildFilters(){
-  const brands = ["Todas"].concat(uniq(ALL.map(p=>p.brand)));
-  const genders = ["Todos"].concat(uniq(ALL.map(p=>p.gender)));
-  const sizes = ["Todos"].concat(uniq(ALL.map(p=>p.size_ml).filter(x=>x!=null).map(x=>String(x))));
-  const types = ["Todos"].concat(uniq(ALL.map(p=>p.type || "N/D")));
 
-  setOptions(el("brandSelect"), brands);
-  setOptions(el("genderSelect"), genders);
-  setOptions(el("sizeSelect"), sizes);
-  setOptions(el("typeSelect"), types);
+function unlockAdmin(){
+  document.body.classList.add("admin-on");
+}
 
-  el("brandSelect").value="Todas";
-  el("genderSelect").value="Todos";
-  el("sizeSelect").value="Todos";
-  el("typeSelect").value="Todos";
+function includesAny(p, list){
+  let s = `${p.brand} ${p.name}`.toLowerCase();
+  return list.some(k=>s.includes(k));
+}
+
+function isBestSeller(p){
+  if(p.gender === "Mujer" && includesAny(p,BEST_WOMEN)) return true;
+  if(p.gender === "Hombre" && includesAny(p,BEST_MEN)) return true;
+  if(p.gender === "Unisex" && includesAny(p,BEST_UNISEX)) return true;
+  return includesAny(p,[...BEST_WOMEN,...BEST_MEN,...BEST_UNISEX]);
+}
+
+function isRecommended(p){
+  const premiumBrands = ["Lattafa","Armaf","Afnan","Rasasi","Carolina Herrera","Dior","Versace","YSL","Jean Paul Gaultier","Bond No. 9","XERJOFF","Parfums de Marly","Maison Alhambra","MANCERA","Maison Francis Kurkdjian","INITIO"];
+  return premiumBrands.includes(p.brand) || isBestSeller(p) || p.isNew;
 }
 
 function applyFilters(){
-  const q = norm(el("searchInput").value).toLowerCase();
-  const brand = el("brandSelect").value;
-  const gender = el("genderSelect").value;
-  const size = el("sizeSelect").value;
-  const type = el("typeSelect").value;
-  const sortBy = el("sortSelect").value;
+  let q = $("search").value.trim().toLowerCase();
+  let brand = $("brandFilter").value;
+  let conc = $("concFilter").value;
+  let stock = $("stockFilter").value;
 
-  filtered = ALL.filter(p=>{
-    const matchQ = !q || (`${p.brand} ${p.name}`).toLowerCase().includes(q);
-    const matchBrand = (brand==="Todas") || (p.brand===brand);
-    const matchGender = (gender==="Todos") || (p.gender===gender);
-    const matchSize = (size==="Todos") || (String(p.size_ml)===size);
-    const matchType = (type==="Todos") || ((p.type||"N/D")===type);
-    return matchQ && matchBrand && matchGender && matchSize && matchType;
+  filtered = allProducts.filter(p=>{
+    let hay = [p.brand,p.name,p.size,p.concentration,p.gender,p.stock,p.note].join(" ").toLowerCase();
+
+    if(q && !hay.includes(q)) return false;
+    if(activeGender !== "all" && p.gender !== activeGender) return false;
+    if(brand && p.brand !== brand) return false;
+    if(conc && p.concentration !== conc) return false;
+
+    let out = p.stockStatus === "out_of_stock" || /agotado/i.test(p.stock);
+    let low = /pocas|low/i.test(p.stock) || p.stockStatus === "low_stock";
+
+    if(stock === "available" && out) return false;
+    if(stock === "new" && !p.isNew) return false;
+    if(stock === "out" && !out) return false;
+
+    if(activeSection === "new" && !p.isNew) return false;
+    if(activeSection === "best" && !isBestSeller(p) && !low) return false;
+    if(activeSection === "recommended" && !isRecommended(p)) return false;
+    if(activeSection === "favorites" && !favorites.includes(String(p.id))) return false;
+
+    return true;
   });
 
-  filtered = sortCatalog(filtered, sortBy);
-  renderBrands();
+  let s = $("sortFilter").value;
+  if(s === "price-asc") filtered.sort((a,b)=>(a.price||0)-(b.price||0));
+  if(s === "price-desc") filtered.sort((a,b)=>(b.price||0)-(a.price||0));
+  if(s === "brand") filtered.sort((a,b)=>a.brand.localeCompare(b.brand,"es"));
+  if(s === "name") filtered.sort((a,b)=>a.name.localeCompare(b.name,"es"));
+
+  render();
 }
 
-/* ===================== RENDER ===================== */
-function renderBrands(){
-  const wrap = el("brands");
-  wrap.innerHTML="";
-  el("resultsCount").textContent = `${filtered.length} productos`;
+function render(){
+  $("resultInfo").textContent = `${filtered.length} fragancias disponibles en VELORA`;
+  $("empty").classList.toggle("hidden", filtered.length > 0);
 
-  const groups = groupByBrand(filtered);
+  const bestWomen = countMatch("Mujer", BEST_WOMEN);
+  const bestMen = countMatch("Hombre", BEST_MEN);
+  const bestUnisex = countMatch("Unisex", BEST_UNISEX);
 
-  for(const [brand, items] of groups.entries()){
-    const section = document.createElement("div");
-    section.className = "brand-section";
+  $("showcase").innerHTML = [
+    {t:"Más vendidos Mujer",d:bestWomen + " opciones",s:"Yara · Good Girl · Delina · Libre"},
+    {t:"Más vendidos Hombre",d:bestMen + " opciones",s:"Asad · Hawas · Sauvage · Eros"},
+    {t:"Más vendidos Unisex",d:bestUnisex + " opciones",s:"Khamrah · Baccarat · Amber Oud"},
+    {t:"Novedades",d:allProducts.filter(p=>p.isNew).length + " nuevas",s:"Llegadas recientes"},
+    {t:"Favoritos",d:favorites.length + " guardados",s:"Tus perfumes marcados"}
+  ].map(x=>`
+    <div class="mini-card">
+      <b>${escapeHtml(x.t)}</b>
+      <span>${escapeHtml(x.d)}</span>
+      <small>${escapeHtml(x.s)}</small>
+    </div>
+  `).join("");
 
-    const head = document.createElement("div");
-    head.className = "brand-header";
+  $("grid").innerHTML = filtered.map(card).join("");
+}
 
-    const title = document.createElement("div");
-    title.className = "brand-title";
-    title.textContent = brand;
+function countMatch(gender, list){
+  return allProducts.filter(p=>p.gender === gender && includesAny(p,list)).length;
+}
 
-    const pill = document.createElement("div");
-    pill.className = "brand-pill";
-    pill.textContent = `${items.length} items`;
+function card(p){
+  let out = p.stockStatus === "out_of_stock" || /agotado/i.test(p.stock);
+  let low = /pocas|low/i.test(p.stock) || p.stockStatus === "low_stock";
+  let fav = favorites.includes(String(p.id));
 
-    head.appendChild(title);
-    head.appendChild(pill);
+  return `
+  <article class="card">
+    <div class="img-wrap">
+      <img src="${escapeAttr(p.image || LOGO)}" loading="lazy" decoding="async" onerror="this.src=LOGO" alt="${escapeAttr(p.brand + " " + p.name)}">
+      <span class="ribbon">${p.isNew ? "NEW" : isBestSeller(p) ? "TOP" : "VELORA"}</span>
+      <button class="heart ${fav ? "active" : ""}" type="button" onclick="toggleFavorite('${escapeAttr(String(p.id))}')">${fav ? "♥" : "♡"}</button>
+    </div>
 
-    const body = document.createElement("div");
-    body.className = "brand-body";
+    <div class="info">
+      <div class="brand">${escapeHtml(p.brand || "VELORA")}</div>
+      <div class="name">${escapeHtml(p.name)}</div>
 
-    const list = document.createElement("div");
-    list.className = "list";
+      <div class="meta">
+        <span>${escapeHtml(p.size || "N/D")}</span>
+        <span>${escapeHtml(p.concentration || "Perfume")}</span>
+        <span>${escapeHtml(p.gender)}</span>
+      </div>
 
-    for(const p of items){
-      const item = document.createElement("div");
-      item.className = "item";
+      <div class="status ${out ? "out" : low ? "low" : ""}">
+        <i class="dot"></i>${escapeHtml(p.stock || (!out ? "Disponible" : "Agotado"))}
+      </div>
 
-      const media = document.createElement("div");
-      media.className = "item-media";
+      <div class="price-row">
+        <div class="price">${escapeHtml(p.note || DEFAULT_NOTE)}</div>
+      </div>
 
-      if(p.image){
-        const img = document.createElement("img");
-        img.loading = "lazy";
-        img.decoding = "async";
-        img.referrerPolicy = "no-referrer";
-        img.alt = `${p.brand} ${p.name}`;
-        img.src = p.image;
-        img.onerror = ()=>{
-          media.innerHTML = "";
-          const ph = document.createElement("div");
-          ph.className = "media-ph";
-          ph.textContent = "Imagen no disponible";
-          media.appendChild(ph);
-        };
-        media.appendChild(img);
-      }else{
-        const ph = document.createElement("div");
-        ph.className = "media-ph";
-        ph.textContent = "Sin imagen";
-        media.appendChild(ph);
-      }
+      <button class="add" type="button" ${out ? "disabled" : ""} onclick="addCart('${escapeAttr(String(p.id))}')">
+        ${out ? "Sin stock" : "Agregar"}
+      </button>
+    </div>
+  </article>`;
+}
 
-      const left = document.createElement("div");
-      left.className = "item-left";
-
-      const name = document.createElement("div");
-      name.className = "item-name";
-      name.textContent = p.name;
-
-      const meta = document.createElement("div");
-      meta.className = "item-meta";
-
-      const c1 = document.createElement("div");
-      c1.className = "chip";
-      c1.textContent = p.gender || "Unisex";
-
-      const c2 = document.createElement("div");
-      c2.className = "chip";
-      c2.textContent = (p.size_ml!=null ? `${p.size_ml} ml` : "Tamaño N/D");
-
-      const c3 = document.createElement("div");
-      c3.className = "chip gold";
-      c3.textContent = p.type || "N/D";
-
-      meta.appendChild(c1);
-      meta.appendChild(c2);
-      meta.appendChild(c3);
-
-      const note = document.createElement("div");
-      note.className = "item-note";
-      note.textContent = p.note || DEFAULT_NOTE;
-
-      left.appendChild(name);
-      left.appendChild(meta);
-      left.appendChild(note);
-
-      const actions = document.createElement("div");
-      actions.className = "item-actions";
-
-      const add = document.createElement("button");
-      add.className = "add-btn";
-      add.type = "button";
-      add.textContent = "Añadir";
-      add.addEventListener("click", ()=> addToCart(p.id));
-
-      const micro = document.createElement("div");
-      micro.className = "micro";
-      micro.textContent = "Precio: por WhatsApp";
-
-      actions.appendChild(add);
-      actions.appendChild(micro);
-
-      if(isAdmin){
-        const adminRow = document.createElement("div");
-        adminRow.className = "admin-row";
-
-        const imgBtn = document.createElement("button");
-        imgBtn.className = "img-btn";
-        imgBtn.type = "button";
-        imgBtn.textContent = p.image ? "Cambiar imagen" : "Añadir imagen";
-        imgBtn.addEventListener("click", ()=>{
-          const url = prompt("Pega la URL DIRECTA de la imagen (jpg/png/webp):", p.image || "");
-          if(url === null) return;
-          const clean = norm(url);
-          p.image = clean ? clean : null;
-          saveCatalogLocal();
-          applyFilters();
-        });
-
-        const clearImg = document.createElement("button");
-        clearImg.className = "danger-btn";
-        clearImg.type = "button";
-        clearImg.textContent = "Quitar imagen";
-        clearImg.addEventListener("click", ()=>{
-          const ok = confirm("¿Quitar imagen de este producto?");
-          if(!ok) return;
-          p.image = null;
-          saveCatalogLocal();
-          applyFilters();
-        });
-
-        adminRow.appendChild(imgBtn);
-        adminRow.appendChild(clearImg);
-        actions.appendChild(adminRow);
-      }
-
-      item.appendChild(media);
-      item.appendChild(left);
-      item.appendChild(actions);
-
-      list.appendChild(item);
-    }
-
-    body.appendChild(list);
-    section.appendChild(head);
-    section.appendChild(body);
-    wrap.appendChild(section);
+function toggleFavorite(id){
+  id = String(id);
+  if(favorites.includes(id)){
+    favorites = favorites.filter(x=>x !== id);
+    toast("Quitado de favoritos");
+  }else{
+    favorites.push(id);
+    toast("Guardado en favoritos");
   }
+  localStorage.setItem("veloraFavorites", JSON.stringify(favorites));
+  applyFilters();
 }
 
-/* ===================== CART ===================== */
-function updateCartCount(){
-  const count = Object.values(cart).reduce((a,b)=>a+(b||0),0);
-  el("cartCount").textContent = String(count);
-}
-function addToCart(id){
-  cart[id] = (cart[id]||0) + 1;
-  saveCart();
-  updateCartCount();
-}
-function decFromCart(id){
-  if(!cart[id]) return;
-  cart[id]--;
-  if(cart[id]<=0) delete cart[id];
-  saveCart();
-  updateCartCount();
-  renderCart();
-}
-function incToCart(id){
-  cart[id] = (cart[id]||0) + 1;
-  saveCart();
-  updateCartCount();
-  renderCart();
-}
-function removeFromCart(id){
-  delete cart[id];
-  saveCart();
-  updateCartCount();
-  renderCart();
-}
-function renderCart(){
-  const wrap = el("cartItems");
-  wrap.innerHTML="";
+function addCart(id){
+  let p = allProducts.find(x=>String(x.id) === String(id));
+  if(!p) return;
 
-  const byId = new Map(ALL.map(p=>[p.id,p]));
-  const ids = Object.keys(cart);
+  let item = cart.find(x=>String(x.id) === String(id));
+  if(item) item.qty++;
+  else cart.push({...p, qty:1});
 
-  if(ids.length===0){
-    wrap.innerHTML = `<div class="note"><div class="note-title">Carrito vacío</div><div style="font-size:12px;color:var(--muted);font-weight:750">Agrega perfumes para armar tu pedido.</div></div>`;
-    return;
+  updateCart();
+  toast("Agregado al carrito");
+}
+
+function changeQty(id, delta){
+  let item = cart.find(x=>String(x.id) === String(id));
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){
+    cart = cart.filter(x=>String(x.id) !== String(id));
+  }
+  updateCart();
+}
+
+function updateCart(){
+  $("cartCount").textContent = cart.reduce((s,i)=>s+i.qty,0);
+
+  if(!cart.length){
+    $("cartItems").innerHTML = '<div class="empty">Tu carrito está vacío.</div>';
+  }else{
+    $("cartItems").innerHTML = cart.map(i=>`
+      <div class="cart-item">
+        <img src="${escapeAttr(i.image || LOGO)}" onerror="this.src=LOGO" alt="">
+        <div>
+          <b>${escapeHtml(i.name)}</b>
+          <span>${escapeHtml(i.brand)} · ${escapeHtml(i.size)} · ${escapeHtml(i.note || DEFAULT_NOTE)}</span>
+        </div>
+        <div class="cart-controls">
+          <div class="qty-box">
+            <button class="qty-btn" type="button" onclick="changeQty('${escapeAttr(String(i.id))}',-1)">−</button>
+            <span class="qty-number">${i.qty}</span>
+            <button class="qty-btn" type="button" onclick="changeQty('${escapeAttr(String(i.id))}',1)">+</button>
+          </div>
+          <button class="remove" type="button" onclick="removeCart('${escapeAttr(String(i.id))}')">×</button>
+        </div>
+      </div>
+    `).join("");
   }
 
-  for(const id of ids){
-    const qty = cart[id];
-    const p = byId.get(id);
-    if(!p) continue;
-
-    const item=document.createElement("div");
-    item.className="cart-item";
-
-    const title=document.createElement("div");
-    title.className="ci-name";
-    title.textContent = `${p.brand} — ${p.name}`;
-
-    const meta=document.createElement("div");
-    meta.className="ci-meta";
-    meta.textContent = `${p.gender||"Unisex"} • ${p.size_ml!=null? p.size_ml+"ml":"N/D"} • ${p.type||"N/D"} • ${p.note || DEFAULT_NOTE}`;
-
-    const qtyRow=document.createElement("div");
-    qtyRow.className="qty-row";
-
-    const controls=document.createElement("div");
-    controls.className="qty-controls";
-
-    const minus=document.createElement("button");
-    minus.className="qbtn";
-    minus.type="button";
-    minus.textContent="−";
-    minus.addEventListener("click", ()=> decFromCart(id));
-
-    const val=document.createElement("div");
-    val.className="qval";
-    val.textContent=String(qty);
-
-    const plus=document.createElement("button");
-    plus.className="qbtn";
-    plus.type="button";
-    plus.textContent="+";
-    plus.addEventListener("click", ()=> incToCart(id));
-
-    controls.appendChild(minus);
-    controls.appendChild(val);
-    controls.appendChild(plus);
-
-    const rm=document.createElement("button");
-    rm.className="qbtn rm";
-    rm.type="button";
-    rm.textContent="Quitar";
-    rm.addEventListener("click", ()=> removeFromCart(id));
-
-    qtyRow.appendChild(controls);
-    qtyRow.appendChild(rm);
-
-    item.appendChild(title);
-    item.appendChild(meta);
-    item.appendChild(qtyRow);
-
-    wrap.appendChild(item);
-  }
+  let hasRealPrices = cart.some(i=>i.price && !/consultar/i.test(i.note || ""));
+  $("total").textContent = hasRealPrices ? money(cart.reduce((s,i)=>s+(i.price||0)*i.qty,0)) : "A consultar";
 }
 
-/* ===================== OPEN/CLOSE ===================== */
+function removeCart(id){
+  cart = cart.filter(i=>String(i.id) !== String(id));
+  updateCart();
+}
+
 function openCart(){
-  el("drawerBackdrop").classList.remove("hidden");
-  el("cartDrawer").classList.add("open");
-  renderCart();
+  $("drawer").classList.add("open");
+  $("back").classList.add("open");
+  updateCart();
 }
+
 function closeCart(){
-  el("drawerBackdrop").classList.add("hidden");
-  el("cartDrawer").classList.remove("open");
-}
-function openImport(){
-  if(!isAdmin) return;
-  el("importModal").classList.remove("hidden");
-  el("importModal").setAttribute("aria-hidden","false");
-}
-function closeImport(){
-  el("importModal").classList.add("hidden");
-  el("importModal").setAttribute("aria-hidden","true");
+  $("drawer").classList.remove("open");
+  $("back").classList.remove("open");
 }
 
-/* ===================== IMPORT PARSER ===================== */
-/* Marca | Nombre | Tamaño | Género | Nota | image_url (opcional) */
-function parseImport(text){
-  const lines = text.split("\n").map(l=>l.trim()).filter(Boolean);
-  const out = [];
-  const seen = new Set();
-
-  for(const line of lines){
-    if(!/[|｜¦│]/.test(line)) continue;
-
-    const parts = splitPipes(line);
-    if(parts.length >= 2){
-      const brand = parts[0];
-      const name = parts[1];
-      const sizeText = parts[2];
-      const gender = parts[3];
-      const note = parts.slice(4,5).join(" | ").trim();
-      const image = parts.length >= 6 ? parts.slice(5).join(" | ").trim() : "";
-
-      const size_ml = parseMl(sizeText);
-      const id = `${slug(brand)}-${slug(name)}-${size_ml||"x"}`;
-
-      if(seen.has(id)) continue;
-      seen.add(id);
-
-      out.push({
-        id,
-        brand: brand || "Sin marca",
-        name: name || "Sin nombre",
-        gender: (gender && gender.trim()!=="") ? gender : "Unisex",
-        size_ml: Number.isFinite(size_ml) ? size_ml : null,
-        note: (note && note.trim()!=="") ? note : DEFAULT_NOTE,
-        image: (image && image.trim()!=="") ? image : null,
-        type: detectType(name || "")
-      });
-    }
-  }
-  return out;
-}
-
-function doImportFromTextarea(){
-  if(!isAdmin) return;
-  const text = el("importText").value;
-  if(!norm(text)) return;
-
-  const list = parseImport(text);
-  if(list.length === 0){
-    alert("No se importó nada. Formato: Marca | Nombre | Tamaño | Género | Nota | image_url (opcional)");
-    return;
-  }
-
-  ALL = sortCatalog(list, el("sortSelect").value || "brand");
-  saveCatalogLocal();
-  buildFilters();
-  applyFilters();
-
-  // limpiar carrito de ids inexistentes
-  const ids = new Set(ALL.map(p=>p.id));
-  for(const k of Object.keys(cart)){
-    if(!ids.has(k)) delete cart[k];
-  }
-  saveCart();
-  updateCartCount();
-  renderCart();
-
-  alert(`Listo: ${ALL.length} productos guardados. Para hacerlo GLOBAL, descarga catalogo.txt y súbelo a GitHub.`);
-  closeImport();
-}
-
-function clearCatalogConfirm(){
-  if(!isAdmin) return;
-  const ok = confirm("¿Seguro que quieres borrar el catálogo LOCAL de este dispositivo?");
-  if(!ok) return;
-  ALL = [];
-  saveCatalogLocal();
-  buildFilters();
-  applyFilters();
-}
-
-function exportCatalogToClipboard(){
-  if(!isAdmin) return;
-  const lines = catalogToTxt(ALL);
-
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(lines).then(()=>{
-      alert("Catálogo copiado. Pégalo donde quieras.");
-    }).catch(()=>{
-      el("importText").value = lines;
-      alert("No pude copiar automático. Te lo dejé en el cuadro para copiar manual.");
-    });
-  }else{
-    el("importText").value = lines;
-    alert("Tu navegador no permite copiar automático. Te lo dejé en el cuadro para copiar manual.");
-  }
-}
-
-/* ===================== CATALOG TXT (GLOBAL) ===================== */
-function catalogToTxt(list){
-  return list.map(p=>{
-    const size = p.size_ml!=null ? `${p.size_ml}ml` : "";
-    const gender = p.gender || "Unisex";
-    const note = p.note || DEFAULT_NOTE;
-    const image = p.image ? p.image : "";
-    return `${p.brand} | ${p.name} | ${size} | ${gender} | ${note}${image ? " | " + image : ""}`;
-  }).join("\n");
-}
-
-function downloadCatalogTxt(){
-  if(!isAdmin) return;
-  const content = catalogToTxt(ALL);
-  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "catalogo.txt";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  URL.revokeObjectURL(url);
-}
-
-async function loadCatalogFromTxtRemote(){
-  try{
-    const res = await fetch(CATALOG_TXT_PATH, { cache: "no-store" });
-    if(!res.ok) return null;
-    const text = await res.text();
-    if(!text || !text.trim()) return null;
-
-    const list = parseImport(text);
-    if(!Array.isArray(list) || list.length===0) return null;
-
-    return list;
-  }catch{
-    return null;
-  }
-}
-
-/* Cargar catalogo.txt desde archivo local (para pruebas) */
-async function loadCatalogFromFile(){
-  if(!isAdmin) return;
-  const input = el("fileCatalog");
-  const file = input?.files?.[0];
-  if(!file){
-    alert("Selecciona primero un archivo catalogo.txt");
-    return;
-  }
-  try{
-    const text = await file.text();
-    const list = parseImport(text);
-    if(!list.length){
-      alert("No pude leer el catálogo. Revisa el formato: Marca | Nombre | Tamaño | Género | Nota | image_url (opcional)");
-      return;
-    }
-    ALL = sortCatalog(list, el("sortSelect").value || "brand");
-    saveCatalogLocal();
-    buildFilters();
-    applyFilters();
-    updateCartCount();
-    alert(`Catálogo cargado desde archivo: ${ALL.length} productos.`);
-    closeImport();
-  }catch{
-    alert("No pude leer el archivo. Intenta de nuevo.");
-  }
-}
-
-async function hydrateCatalog(){
-  migrateIfNeeded();
-
-  // 1) intento remoto (global)
-  const remote = await loadCatalogFromTxtRemote();
-  if(remote && remote.length){
-    ALL = remote;
-    saveCatalogLocal();
-    return;
-  }
-
-  // 2) fallback local
-  ALL = loadCatalogLocal();
-}
-
-/* ===================== WHATSAPP ===================== */
-function buildWhatsAppMessage(){
-  const byId = new Map(ALL.map(p=>[p.id,p]));
-  const items = Object.keys(cart).map(id=>{
-    const qty = cart[id];
-    const p = byId.get(id);
-    if(!p) return null;
-    const mlTxt = (p.size_ml!=null ? `${p.size_ml}ml` : "Tamaño N/D");
-    const genTxt = (p.gender || "Unisex");
-    const typeTxt = (p.type || "N/D");
-    return `• ${qty} x ${p.brand} — ${p.name} (${mlTxt}, ${genTxt}, ${typeTxt})`;
-  }).filter(Boolean);
-
-  const name = norm(el("customerName").value);
-  const zone = norm(el("customerZone").value);
-  const note = norm(el("customerNote").value);
-const seller = norm(el("sellerSelect").value);
-  
-  const lines = [];
-  lines.push("👋 Hola, buenas.");
-  lines.push("✨ Me gustaría cotizar y hacer un pedido del siguiente listado:");
-  lines.push("");
-  lines.push(...items);
-  lines.push("");
-  if(name) lines.push(`👤 Nombre: ${name}`);
-  if(zone) lines.push(`📍 Zona/Dirección: ${zone}`);
-  if(note) lines.push(`📝 Nota: ${note}`);
-  if(seller) lines.push(`🧑‍💼 Vendedora: ${seller}`);
-  lines.push("");
-  lines.push("✅ Quedo atento/a a disponibilidad y precio. ¡Muchas gracias! 🙏");
-
-  return lines.join("\n");
-}
 function sendWhatsApp(){
-  const seller = el("sellerSelect").value;
-if(!seller){
-  alert("Debes seleccionar una vendedora antes de enviar el pedido.");
-  return;
-}
-  if(Object.keys(cart).length===0){
-    alert("Tu carrito está vacío.");
+  if(!cart.length){
+    toast("Agrega perfumes primero");
     return;
   }
-  const msg = buildWhatsAppMessage();
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+
+  let lines = [];
+  lines.push("🌸 *Hola VELORA Boutique de Perfumes* 🌸");
+  lines.push("");
+  lines.push("Me interesa consultar este pedido:");
+  lines.push("");
+
+  cart.forEach((i,index)=>{
+    lines.push(`✨ *${index + 1}. ${i.brand} — ${i.name}*`);
+    lines.push(`   • Tamaño: ${i.size || "N/D"}`);
+    lines.push(`   • Cantidad: ${i.qty}`);
+    lines.push(`   • Precio: ${i.note || DEFAULT_NOTE}`);
+    lines.push("");
+  });
+
+  lines.push("💗 *Total estimado:* " + $("total").textContent);
+  lines.push("");
+  lines.push("¿Me confirmas disponibilidad, precio final y tiempo de entrega?");
+  lines.push("");
+  lines.push("Gracias ✨");
+
+  let url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n"));
+  window.open(url,"_blank");
 }
 
-/* ===================== ADMIN (UNLOCK) ===================== */
-function showAdminUI(){
-  isAdmin = true;
-  el("adminPanel").style.display = "block";
-}
-function hideAdminUI(){
-  isAdmin = false;
-  el("adminPanel").style.display = "none";
-  closeImport();
+function clearFilters(){
+  $("search").value = "";
+  $("brandFilter").value = "";
+  $("concFilter").value = "";
+  $("stockFilter").value = "";
+  $("sortFilter").value = "featured";
+  activeGender = "all";
+
+  document.querySelectorAll(".seg").forEach(x=>{
+    x.classList.toggle("active", x.dataset.gender === "all");
+  });
+
+  applyFilters();
 }
 
-function requestAdminUnlock(){
-  const clave = prompt("Introduce la clave secreta para activar el modo admin:");
-  if(clave === ADMIN_SECRET){
-    showAdminUI();
-    alert("Modo admin activado (se desactiva al recargar/cerrar).");
-    applyFilters();
+function importAdmin(){
+  let txt = $("adminText").value.trim();
+  if(!txt){
+    toast("Pega un catálogo primero");
+    return;
+  }
+
+  localStorage.setItem("veloraCatalog", txt);
+  allProducts = parseCatalog(txt);
+  fillFilters();
+  applyFilters();
+  toast("Catálogo importado");
+}
+
+function exportTxt(){
+  let txt = allProducts.map(p=>[p.brand,p.name,p.size,p.gender,p.note,p.image].join(" | ")).join("\n");
+
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(()=>toast("TXT copiado"));
   }else{
-    alert("Clave incorrecta.");
+    $("adminText").value = txt;
+    toast("TXT listo para copiar");
   }
 }
 
-/* long-press en logo (5s) */
-function wireLogoLongPress(){
-  const logo = el("logo");
-  if(!logo) return;
-
-  let timer = null;
-  const start = (e)=>{
-    if(e && e.type === "contextmenu") e.preventDefault();
-    clearTimeout(timer);
-    timer = setTimeout(()=> requestAdminUnlock(), 5000);
-  };
-  const stop = ()=>{
-    clearTimeout(timer);
-    timer = null;
-  };
-
-  logo.addEventListener("pointerdown", start);
-  logo.addEventListener("pointerup", stop);
-  logo.addEventListener("pointercancel", stop);
-  logo.addEventListener("pointerleave", stop);
-  logo.addEventListener("contextmenu", (e)=> e.preventDefault());
+function toast(t){
+  let el = $("toast");
+  el.textContent = t;
+  el.classList.add("show");
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>el.classList.remove("show"),1800);
 }
 
-/* ===================== EVENTS ===================== */
-function wire(){
-  el("year").textContent = String(new Date().getFullYear());
+function sparkle(){
+  let s = $("sparkle");
+  if(s.children.length) return;
 
-  el("searchInput").addEventListener("input", applyFilters);
-  el("brandSelect").addEventListener("change", applyFilters);
-  el("genderSelect").addEventListener("change", applyFilters);
-  el("sizeSelect").addEventListener("change", applyFilters);
-  el("typeSelect").addEventListener("change", applyFilters);
-  el("sortSelect").addEventListener("change", applyFilters);
-
-  el("clearFilters").addEventListener("click", ()=>{
-    el("searchInput").value="";
-    buildFilters();
-    applyFilters();
-  });
-
-  el("cartBtn").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    openCart();
-  });
-  el("closeCart").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    closeCart();
-  });
-  el("drawerBackdrop").addEventListener("click", closeCart);
-
-  el("sendWhatsApp").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    sendWhatsApp();
-  });
-  el("clearCart").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    const ok = confirm("¿Vaciar carrito?");
-    if(!ok) return;
-    cart = {};
-    saveCart();
-    updateCartCount();
-    renderCart();
-  });
-
-  el("importBtn").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    openImport();
-  });
-
-  el("closeImport").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    closeImport();
-  });
-
-  el("doImport").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    doImportFromTextarea();
-  });
-
-  el("clearCatalog").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    clearCatalogConfirm();
-  });
-
-  el("exportCatalog").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    exportCatalogToClipboard();
-  });
-
-  el("downloadCatalogTxt").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    downloadCatalogTxt();
-  });
-
-  el("loadFileBtn").addEventListener("click", (e)=>{
-    e.preventDefault(); e.stopPropagation();
-    loadCatalogFromFile();
-  });
-
-  el("importModal").addEventListener("click", (e)=>{
-    if(e.target === el("importModal")) closeImport();
-  });
-
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape" && !el("importModal").classList.contains("hidden")){
-      closeImport();
-    }
-  });
-
-  wireLogoLongPress();
+  for(let i=0;i<22;i++){
+    let e = document.createElement("i");
+    e.style.left = Math.random()*100 + "%";
+    e.style.top = Math.random()*80 + "%";
+    e.style.animationDelay = Math.random()*8 + "s";
+    e.style.transform = `scale(${.6 + Math.random()})`;
+    s.appendChild(e);
+  }
 }
 
-/* ===================== INIT ===================== */
-async function init(){
-  wire();
-  hideAdminUI();
-
-  await hydrateCatalog();
-
-  // Asegurar type siempre
-  ALL = (ALL||[]).map(p=>({
-    ...p,
-    image: p.image || null,
-    type: p.type || detectType(p.name || "")
-  }));
-
-  saveCatalogLocal();
-
-  buildFilters();
-  filtered = ALL.slice();
-  applyFilters();
-  updateCartCount();
+function escapeHtml(str){
+  return String(str ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-init();
+function escapeAttr(str){
+  return escapeHtml(str).replaceAll("`","&#096;");
+}
+
+loadCatalog();
 </script>
 </body>
 </html>
